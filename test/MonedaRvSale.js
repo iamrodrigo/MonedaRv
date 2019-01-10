@@ -59,4 +59,23 @@ contract("MonedaRvSale", function(accounts) {
 			assert(error.message.indexOf('revert') >= 0, 'cannot purchase more tokens than the contract has');
 		})
 	});
+
+	it('ends token sale', function(){
+		return MonedaRv.deployed().then(function(instance) {
+			tokenInstance = instance;
+			return MonedaRvSale.deployed();
+		}).then(function(instance) {
+			tokenSaleInstance = instance;
+
+			return tokenSaleInstance.endSale({from: buyer});
+		}).then(assert.fail).catch(function(error) {
+			assert(error.message.indexOf('revert') >= 0, 'must be admin to end sale');
+			
+			return tokenSaleInstance.endSale({from: admin});
+		}).then(function(receipt) {
+			return tokenInstance.balanceOf(admin);
+		}).then(function(balance) {
+			assert.equal(balance.toNumber(), 999990, 'returns all unsold dapp tokens to admin');
+		});
+	});
 });
