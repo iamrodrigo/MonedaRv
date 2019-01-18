@@ -1,0 +1,17 @@
+{
+	"name": "monedaRv-sale",
+	"version": "1.0.0",
+	"description": "MonedaRv Token Sale ICO",
+	"main": "truffle.js",
+	"directories": {
+		"test": "test"
+	},
+	"scripts": {
+		"dev": "lite-server"
+	},
+	"author": "Gregory",
+	"license": "ISC",
+	"devDependencies": {
+		"lite-server": "^2.4.0"
+	}
+}
